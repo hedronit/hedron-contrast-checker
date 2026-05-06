@@ -41,7 +41,7 @@ hedron-contrast-checker/
 ├── index.html   — semantic HTML with ARIA attributes
 ├── style.css    — CSS custom properties, dark mode, print styles
 ├── script.js    — color math, WCAG & APCA algorithms, suggestion engine
-├── LICENSE      — MIT
+├── LICENSE      — GPL v3
 └── README.md
 ```
 
