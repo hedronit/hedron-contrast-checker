@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <title>Hedron Contrast Checker</title>
+  <!-- Left half: dark -->
+  <path d="M16,1 A15,15 0 1,0 16,31 L16,1 Z" fill="#1c1c1a"/>
+  <!-- Right half: light -->
+  <path d="M16,1 A15,15 0 1,1 16,31 L16,1 Z" fill="#f4f4f0"/>
+  <!-- Border -->
+  <circle cx="16" cy="16" r="15" fill="none" stroke="#1c1c1a" stroke-width="1"/>
+</svg>

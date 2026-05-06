@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Hedron Contrast Checker — WCAG 2.2 + APCA</title>
+  <meta name="description" content="Check color contrast against WCAG 2.2 and APCA. Find conformant variants while keeping your original hue.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Hedron Contrast Checker">
+  <meta property="og:description" content="Check color contrast against WCAG 2.2 and APCA, with suggestions for conformant variants.">
+  <meta property="og:type" content="website">
+
+  <!-- Fonts: Source Sans 3 (updated Source Sans Pro) + Source Code Pro -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Skip link for keyboard navigation -->
+  <a class="skip-link" href="#results">Skip to results</a>
+
+  <div class="page-wrapper">
+
+    <header class="site-header" role="banner">
+      <div class="header-inner">
+        <div class="brand">
+          <span class="brand-name">Hedron</span>
+          <span class="brand-tool">Contrast Checker</span>
+        </div>
+        <p class="header-description">
+          Evaluate color contrast against <strong>WCAG 2.2</strong> and <strong>APCA</strong>,
+          and find conformant variants close to your original color.
+        </p>
+      </div>
+    </header>
+
+    <main id="main" class="main-content">
+
+      <!-- ── Color inputs ── -->
+      <section class="input-section" aria-label="Color input">
+
+        <div class="color-inputs-grid">
+
+          <!-- Text color -->
+          <fieldset class="color-fieldset" id="txt-fieldset">
+            <legend class="fieldset-legend">Text color</legend>
+
+            <div class="picker-hex-row">
+              <div class="picker-wrap">
+                <label class="visually-hidden" for="txtPicker">Text color visual picker</label>
+                <input
+                  type="color"
+                  id="txtPicker"
+                  value="#F36A6F"
+                  aria-describedby="txt-hex-desc"
+                >
+              </div>
+              <div class="hex-wrap">
+                <label class="input-label" for="txtHex">
+                  <span class="visually-hidden">Text color hex value</span>
+                  <span aria-hidden="true">HEX</span>
+                </label>
+                <input
+                  type="text"
+                  id="txtHex"
+                  class="hex-input"
+                  value="#F36A6F"
+                  maxlength="7"
+                  autocomplete="off"
+                  spellcheck="false"
+                  aria-describedby="txt-hex-desc"
+                  pattern="^#[0-9A-Fa-f]{6}$"
+                >
+                <span id="txt-hex-desc" class="visually-hidden">Format: #RRGGBB</span>
+              </div>
+            </div>
+
+            <div class="rgb-row" role="group" aria-label="Text color RGB values">
+              <div class="rgb-channel">
+                <label class="rgb-label" for="txtR">R</label>
+                <input type="number" id="txtR" class="rgb-input" min="0" max="255" value="243" aria-label="Red (0–255)">
+              </div>
+              <div class="rgb-channel">
+                <label class="rgb-label" for="txtG">G</label>
+                <input type="number" id="txtG" class="rgb-input" min="0" max="255" value="106" aria-label="Green (0–255)">
+              </div>
+              <div class="rgb-channel">
+                <label class="rgb-label" for="txtB">B</label>
+                <input type="number" id="txtB" class="rgb-input" min="0" max="255" value="111" aria-label="Blue (0–255)">
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Swap button -->
+          <div class="swap-col" aria-hidden="true">
+            <button
+              type="button"
+              class="swap-btn"
+              id="swapBtn"
+              title="Swap text and background colors"
+              aria-label="Swap text and background colors"
+            >
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true" focusable="false">
+                <path d="M3 6h12M3 6l3-3M3 6l3 3M15 12H3M15 12l-3-3M15 12l-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Background color -->
+          <fieldset class="color-fieldset" id="bg-fieldset">
+            <legend class="fieldset-legend">Background color</legend>
+
+            <div class="picker-hex-row">
+              <div class="picker-wrap">
+                <label class="visually-hidden" for="bgPicker">Background color visual picker</label>
+                <input
+                  type="color"
+                  id="bgPicker"
+                  value="#000000"
+                  aria-describedby="bg-hex-desc"
+                >
+              </div>
+              <div class="hex-wrap">
+                <label class="input-label" for="bgHex">
+                  <span class="visually-hidden">Background color hex value</span>
+                  <span aria-hidden="true">HEX</span>
+                </label>
+                <input
+                  type="text"
+                  id="bgHex"
+                  class="hex-input"
+                  value="#000000"
+                  maxlength="7"
+                  autocomplete="off"
+                  spellcheck="false"
+                  aria-describedby="bg-hex-desc"
+                  pattern="^#[0-9A-Fa-f]{6}$"
+                >
+                <span id="bg-hex-desc" class="visually-hidden">Format: #RRGGBB</span>
+              </div>
+            </div>
+
+            <div class="rgb-row" role="group" aria-label="Background color RGB values">
+              <div class="rgb-channel">
+                <label class="rgb-label" for="bgR">R</label>
+                <input type="number" id="bgR" class="rgb-input" min="0" max="255" value="0" aria-label="Red (0–255)">
+              </div>
+              <div class="rgb-channel">
+                <label class="rgb-label" for="bgG">G</label>
+                <input type="number" id="bgG" class="rgb-input" min="0" max="255" value="0" aria-label="Green (0–255)">
+              </div>
+              <div class="rgb-channel">
+                <label class="rgb-label" for="bgB">B</label>
+                <input type="number" id="bgB" class="rgb-input" min="0" max="255" value="0" aria-label="Blue (0–255)">
+              </div>
+            </div>
+          </fieldset>
+
+        </div>
+      </section>
+
+      <!-- ── Preview ── -->
+      <section class="preview-section" aria-label="Text preview">
+        <div class="preview-box" id="preview" role="img" aria-label="Text preview with the selected colors">
+          <p class="preview-normal" id="previewNormal">
+            Normal text (16px) — The quick brown fox jumps over the lazy dog
+          </p>
+          <p class="preview-large" id="previewLarge">
+            Large text (24px semi-bold)
+          </p>
+        </div>
+      </section>
+
+      <!-- ── Results ── -->
+      <section
+        id="results"
+        class="results-section"
+        aria-label="Contrast analysis results"
+        aria-live="polite"
+        aria-atomic="false"
+      >
+
+        <div class="metrics-grid">
+
+          <!-- WCAG 2.2 -->
+          <div class="metric-card" id="wcag-card">
+            <div class="metric-header">
+              <span class="metric-standard">WCAG 2.2</span>
+              <span class="metric-description">Contrast ratio</span>
+            </div>
+            <div class="metric-value" id="wcagVal" aria-live="polite">—</div>
+            <div class="metric-badges" id="wcagBadges" aria-label="WCAG levels"></div>
+          </div>
+
+          <!-- APCA -->
+          <div class="metric-card" id="apca-card">
+            <div class="metric-header">
+              <span class="metric-standard">APCA</span>
+              <span class="metric-description">Lightness Contrast (Lc)</span>
+            </div>
+            <div class="metric-value" id="apcaVal" aria-live="polite">—</div>
+            <div class="metric-badges" id="apcaBadges" aria-label="APCA levels"></div>
+          </div>
+
+        </div>
+
+        <!-- Algorithm divergence note -->
+        <div
+          id="divergenceNote"
+          class="divergence-note"
+          role="status"
+          aria-live="polite"
+          hidden
+        ></div>
+
+      </section>
+
+      <!-- ── Conformant variants ── -->
+      <section class="suggestions-section" aria-label="Conformant color variants">
+        <div class="section-header">
+          <h2 class="section-title">Conformant variants</h2>
+          <p class="section-description">
+            Colors close to the original that meet accessibility thresholds.
+            Click any swatch to apply it as the text color.
+          </p>
+        </div>
+        <div id="suggestionsContent" aria-live="polite"></div>
+      </section>
+
+      <!-- ── Reference thresholds ── -->
+      <section class="reference-section" aria-label="Reference thresholds">
+        <h2 class="section-title">Reference thresholds</h2>
+
+        <div class="table-wrapper">
+          <table class="reference-table">
+            <caption class="visually-hidden">Minimum contrast thresholds for WCAG 2.2 and APCA</caption>
+            <thead>
+              <tr>
+                <th scope="col">Standard</th>
+                <th scope="col">Threshold</th>
+                <th scope="col">Use case</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>WCAG 2.2 AA</td><td>≥ 4.5:1</td><td>Normal text (below 18pt / 14pt bold)</td></tr>
+              <tr><td>WCAG 2.2 AA</td><td>≥ 3:1</td><td>Large text (18pt+ / 14pt bold+)</td></tr>
+              <tr><td>WCAG 2.2 AAA</td><td>≥ 7:1</td><td>Normal text — enhanced level</td></tr>
+              <tr><td>WCAG 2.2 AAA</td><td>≥ 4.5:1</td><td>Large text — enhanced level</td></tr>
+              <tr><td>APCA Lc 75</td><td>|Lc| ≥ 75</td><td>Body text (≥ 16px normal, ≥ 14px bold)</td></tr>
+              <tr><td>APCA Lc 60</td><td>|Lc| ≥ 60</td><td>Large text (≥ 24px normal, ≥ 18px bold)</td></tr>
+              <tr><td>APCA Lc 45</td><td>|Lc| ≥ 45</td><td>Very large text (≥ 36px)</td></tr>
+              <tr><td>APCA Lc 30</td><td>|Lc| ≥ 30</td><td>Non-text elements (icons, borders)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+      <p>
+        <a href="https://www.w3.org/TR/WCAG22/" target="_blank" rel="noopener noreferrer">WCAG 2.2</a>
+        — W3C Recommendation (December 2024) &nbsp;·&nbsp;
+        <a href="https://github.com/Myndex/SAPC-APCA" target="_blank" rel="noopener noreferrer">APCA-W3 0.1.9</a>
+        — candidate algorithm for WCAG 3.0
+      </p>
+      <p>
+        All calculations run in the browser. No data is sent to any server. &nbsp;·&nbsp;
+        <a href="https://github.com/hedronit/hedron-contrast-checker" target="_blank" rel="noopener noreferrer">GitHub</a>
+        &nbsp;·&nbsp;
+        <a href="https://hedron.it" target="_blank" rel="noopener noreferrer">Hedron</a>
+      </p>
+    </footer>
+
+  </div><!-- /.page-wrapper -->
+
+  <script src="script.js"></script>
+</body>
+</html>
