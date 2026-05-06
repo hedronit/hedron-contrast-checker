@@ -1,0 +1,9 @@
+# Hedron Contrast Checker — Code Owners
+#
+# These users are required to review and approve every pull request
+# before it can be merged into main.
+#
+# Syntax: <file pattern> <owner> [<owner> ...]
+# A single * matches all files in the repository.
+
+* @giacomobosio @Nicohed @EdoardoDamore
