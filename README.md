@@ -2,7 +2,7 @@
 
 A clean, accessible, dependency-free color contrast checker supporting both **WCAG 2.2** and **APCA-W3 0.1.9**.
 
-**[→ Live demo](https://hedronit.github.io/hedron-contrast-checker)**
+**[→ Live demo](https://contrastchecker.hedron.it)**
 
 ---
 
