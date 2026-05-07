@@ -124,6 +124,12 @@ Contributions are welcome. Please open an issue before submitting a large PR so 
 
 APCA is an experimental algorithm. It is not yet a W3C standard. Do not rely on it alone for legal accessibility compliance — use WCAG 2.2 as the normative reference.
 
+### Note on APCA implementation
+ 
+The APCA contrast calculation in this project is an independent implementation based on the publicly available APCA-W3 0.1.9 specification. No code from the [SAPC-APCA](https://github.com/Myndex/SAPC-APCA) or [apca-w3](https://github.com/Myndex/apca-w3) repositories was copied or incorporated.
+ 
+"APCA" and "Advanced Perceptual Contrast Algorithm" are trademarks of Myndex Research and Andrew Somers. Use of these terms here refers strictly to a compliant implementation of the algorithm as defined for web content accessibility purposes.
+
 ---
 
 ## License
