@@ -8,18 +8,18 @@ A clean, accessible, dependency-free color contrast checker supporting both **WC
 
 ## Features
 
-- **Dual standard evaluation** — WCAG 2.2 (AA / AAA) and APCA Lightness Contrast (Lc), side by side
-- **Flexible color input** — HEX, RGB fields, and native color picker, all synced in real time
-- **Divergence detection** — highlights cases where WCAG and APCA disagree (e.g. saturated colors on dark backgrounds that pass WCAG but fail APCA)
-- **Conformant variants** — suggests nearby colors (same hue, adjusted lightness) that meet accessibility thresholds, grouped by compliance level
-- **Swap button** — instantly reverses text and background colors to check both polarities
-- **Dark mode** — respects `prefers-color-scheme`
-- **Fully accessible** — semantic HTML, ARIA landmarks, `aria-live` regions, keyboard navigation, visible focus rings, skip link
-- **Zero dependencies** — single HTML + CSS + JS, no build step, no frameworks, no tracking
+- **Dual standard evaluation**: WCAG 2.2 (AA / AAA) and APCA Lightness Contrast (Lc), side by side
+- **Flexible color input**: HEX, RGB fields, and native color picker, all synced in real time
+- **Divergence detection**: highlights cases where WCAG and APCA disagree (e.g. saturated colors on dark backgrounds that pass WCAG but fail APCA)
+- **Conformant variants**: suggests nearby colors (same hue, adjusted lightness) that meet accessibility thresholds, grouped by compliance level
+- **Swap button**: instantly reverses text and background colors to check both polarities
+- **Dark mode**: respects `prefers-color-scheme`
+- **Fully accessible**: semantic HTML, ARIA landmarks, `aria-live` regions, keyboard navigation, visible focus rings, skip link
+- **Zero dependencies**: single HTML + CSS + JS, no build step, no frameworks, no tracking
 
 ---
 
-## WCAG vs APCA — why both?
+## WCAG vs APCA. Why both?
 
 WCAG 2.x measures contrast using a **luminance ratio** only. This can produce misleading results for saturated colors: a vivid red on black may pass WCAG AA with a ratio of 5.25:1, yet remain hard to read due to chromatic aberration and reduced perceived contrast for users with color vision deficiencies.
 
@@ -74,7 +74,7 @@ python3 -m http.server 8080
 2. Go to **Settings → Pages**
 3. Under *Source*, select **Deploy from a branch**
 4. Choose branch `main` (or `master`), folder `/root`
-5. Click **Save** — the site will be live at `https://<your-username>.github.io/hedron-contrast-checker` within a minute
+5. Click **Save**, the site will be live at `https://<your-username>.github.io/hedron-contrast-checker` within a minute
 
 ---
 
@@ -84,7 +84,7 @@ Contributions are welcome. Please open an issue before submitting a large PR so 
 
 ### Branching workflow
 
-`main` is always production — it is what GitHub Pages serves. **Never push directly to `main`.**
+`main` is always production: it is what GitHub Pages serves. **Never push directly to `main`.**
 
 1. Fork the repository
 2. Create a feature branch from `main`:
@@ -122,7 +122,7 @@ Contributions are welcome. Please open an issue before submitting a large PR so 
 | WCAG 2.2 contrast ratio | W3C Recommendation, Dec 2024 | [w3.org/TR/WCAG22](https://www.w3.org/TR/WCAG22/) |
 | APCA-W3 | 0.1.9 (Bronze) | [github.com/Myndex/SAPC-APCA](https://github.com/Myndex/SAPC-APCA) |
 
-APCA is an experimental algorithm. It is not yet a W3C standard. Do not rely on it alone for legal accessibility compliance — use WCAG 2.2 as the normative reference.
+APCA is an experimental algorithm. It is not yet a W3C standard. Do not rely on it alone for legal accessibility compliance. Use WCAG 2.2 as the normative reference.
 
 ### Note on APCA implementation
  
