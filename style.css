@@ -97,8 +97,8 @@
     --color-border-strong: rgba(255, 255, 255, 0.16);
 
     --color-text:          #eeeee8;
-    --color-text-2:        #a8a89e;
-    --color-text-3:        #c9c9c5;
+    --color-text-2:        #ffffff;
+    --color-text-3:        #ffffff;
 
     --color-accent:        #60a5fa;
     --color-accent-light:  rgba(96, 165, 250, 0.12);
@@ -108,7 +108,7 @@
     --color-pass-bg:       rgba(74, 222, 128, 0.08);
     --color-pass-border:   rgba(74, 222, 128, 0.22);
 
-    --color-warn:          #fcd34d;
+    --color-warn:          #fbd756;
     --color-warn-bg:       rgba(252, 211, 77, 0.08);
     --color-warn-border:   rgba(252, 211, 77, 0.22);
 
