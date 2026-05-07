@@ -23,7 +23,7 @@ A clean, accessible, dependency-free color contrast checker supporting both **WC
 
 WCAG 2.x measures contrast using a **luminance ratio** only. This can produce misleading results for saturated colors: a vivid red on black may pass WCAG AA with a ratio of 5.25:1, yet remain hard to read due to chromatic aberration and reduced perceived contrast for users with color vision deficiencies.
 
-**APCA** (Advanced Perceptual Contrast Algorithm) is the candidate algorithm for WCAG 3.0. It accounts for perceived lightness, text polarity (dark-on-light vs light-on-dark), and is more accurate for chromatic colors. Lc values map directly to font size and weight thresholds.
+**APCA** (Advanced Perceptual Contrast Algorithm) accounts for perceived lightness, text polarity (dark-on-light vs light-on-dark), and is more accurate for chromatic colors. Lc values map directly to font size and weight thresholds.
 
 | Lc value | Use case |
 |---|---|
@@ -104,7 +104,7 @@ Contributions are welcome. Please open an issue before submitting a large PR so 
 - Add a "check foreground" / "check background" toggle for the suggestion engine
 - Improve the APCA suggestion engine with font-size-aware thresholds
 - Add OKLCH color input support
-- Translations (currently Italian UI, English code comments)
+- Translations
 
 ### Before submitting a PR
 
@@ -123,6 +123,12 @@ Contributions are welcome. Please open an issue before submitting a large PR so 
 | APCA-W3 | 0.1.9 (Bronze) | [github.com/Myndex/SAPC-APCA](https://github.com/Myndex/SAPC-APCA) |
 
 APCA is an experimental algorithm. It is not yet a W3C standard. Do not rely on it alone for legal accessibility compliance — use WCAG 2.2 as the normative reference.
+
+### Note on APCA implementation
+ 
+The APCA contrast calculation in this project is an independent implementation based on the publicly available APCA-W3 0.1.9 specification. No code from the [SAPC-APCA](https://github.com/Myndex/SAPC-APCA) or [apca-w3](https://github.com/Myndex/apca-w3) repositories was copied or incorporated.
+ 
+"APCA" and "Advanced Perceptual Contrast Algorithm" are trademarks of Myndex Research and Andrew Somers. Use of these terms here refers strictly to a compliant implementation of the algorithm as defined for web content accessibility purposes.
 
 ---
 
