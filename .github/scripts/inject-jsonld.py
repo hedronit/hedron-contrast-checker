@@ -31,6 +31,7 @@ JSONLD = {
             "name": "Giacomo Bosio",
             "url": "https://giacomobosio.com",
             "sameAs": [
+                "https://orcid.org/0009-0008-0670-2245",
                 "https://it.linkedin.com/in/giacomobosio/",
                 "https://github.com/giacomobosio"
             ]
