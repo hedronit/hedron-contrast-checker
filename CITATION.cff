@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "Hedron Contrast Checker"
+abstract: "Dependency-free color contrast checker supporting WCAG 2.2 AA/AAA and APCA, with divergence detection and conformant color suggestions."
+authors:
+  - family-names: "Bosio"
+    given-names: "Giacomo"
+  - family-names: "D'Amore"
+    given-names: "Edoardo"
+  - family-names: "Bruno"
+    given-names: "Nicoletta"
+repository-code: "https://github.com/hedronit/hedron-contrast-checker"
+url: "https://contrastchecker.hedron.it/"
+license: GPL-3.0
+version: "1.0"
+date-released: "2025-05-08"
+keywords:
+  - accessibility
+  - color-contrast
+  - wcag
+  - apca
+  - a11y
