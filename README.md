@@ -1,8 +1,23 @@
 # Hedron Contrast Checker
 
+> WCAG 2.2 AA/AAA · APCA · Divergence detection · Conformant color suggestions · Zero dependencies · No build step
+
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
+[![WCAG 2.2](https://img.shields.io/badge/WCAG-2.2-green)](https://www.w3.org/TR/WCAG22/)
+[![Zero dependencies](https://img.shields.io/badge/dependencies-0-brightgreen)](#)
+[![Live demo](https://img.shields.io/badge/demo-online-orange)](https://contrastchecker.hedron.it)
+
 A clean, accessible, dependency-free color contrast checker supporting both **WCAG 2.2** and **APCA-W3 0.1.9**.
 
 **[→ Live demo](https://contrastchecker.hedron.it)**
+
+---
+
+## Why this tool?
+
+Testing color contrast for web accessibility compliance typically requires juggling multiple tools: one for WCAG ratios, another for APCA values, and yet another to find a fix when colors fail. Hedron Contrast Checker combines all of this in a single, self-contained file: no installation, no account, no tracking.
+
+It also addresses a blind spot in WCAG-only workflows: saturated colors that pass the WCAG luminance ratio but are still difficult to read in practice. By showing both WCAG and APCA results side by side and flagging divergences, it helps designers make more informed, accessible color decisions.
 
 ---
 
