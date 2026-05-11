@@ -6,15 +6,20 @@ abstract: "Dependency-free color contrast checker supporting WCAG 2.2 AA/AAA and
 authors:
   - family-names: "Bosio"
     given-names: "Giacomo"
+    affiliation: "Hedron"
+    website: "https://giacomobosio.com"
+    orcid: "https://orcid.org/0009-0008-0670-2245"
   - family-names: "D'Amore"
     given-names: "Edoardo"
+    affiliation: "Hedron"
   - family-names: "Bruno"
     given-names: "Nicoletta"
+    affiliation: "Hedron"
 repository-code: "https://github.com/hedronit/hedron-contrast-checker"
 url: "https://contrastchecker.hedron.it/"
 license: GPL-3.0
 version: "1.0"
-date-released: "2025-05-08"
+date-released: "2026-05-08"
 keywords:
   - accessibility
   - color-contrast

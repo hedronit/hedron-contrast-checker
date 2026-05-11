@@ -85,11 +85,19 @@ python3 -m http.server 8080
 
 ## Deploying to GitHub Pages
 
-1. Push the repo to GitHub (ensure `index.html` is at the root of the branch)
-2. Go to **Settings → Pages**
-3. Under *Source*, select **Deploy from a branch**
-4. Choose branch `main` (or `master`), folder `/root`
-5. Click **Save**, the site will be live at `https://<your-username>.github.io/hedron-contrast-checker` within a minute
+This repo deploys via GitHub Actions, which also injects SEO metadata at build time.
+If you forked the project, you can choose either method:
+
+**Option A: GitHub Actions (recommended)**
+1. Go to **Settings → Pages**, under *Source* select **GitHub Actions**
+2. The workflow will run automatically on every push to `main`
+3. Update `.github/scripts/inject-jsonld.py` with your own details before deploying
+
+**Option B: Deploy from branch**
+1. Go to **Settings → Pages**, under *Source* select **Deploy from a branch**
+2. Choose branch `main`, folder `/root` and click **Save**
+
+Both options will publish the site at `https://<your-username>.github.io/hedron-contrast-checker` within a minute.
 
 ---
 
