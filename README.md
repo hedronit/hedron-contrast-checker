@@ -31,6 +31,7 @@ It also addresses a blind spot in WCAG-only workflows: saturated colors that pas
 - **Dark mode**: respects `prefers-color-scheme`
 - **Fully accessible**: semantic HTML, ARIA landmarks, `aria-live` regions, keyboard navigation, visible focus rings, skip link
 - **Zero dependencies**: single HTML + CSS + JS, no build step, no frameworks, no tracking
+- **No third-party requests**: fonts are self-hosted, so the page never contacts external servers
 
 ---
 
@@ -56,6 +57,8 @@ hedron-contrast-checker/
 ├── index.html   — semantic HTML with ARIA attributes
 ├── style.css    — CSS custom properties, dark mode, print styles
 ├── script.js    — color math, WCAG & APCA algorithms, suggestion engine
+├── fonts/       — Source Sans 3 and Source Code Pro (woff2, SIL Open Font License)
+├── ACCESSIBILITY.md — accessibility statement and how to report barriers
 ├── LICENSE      — GPL v3
 └── README.md
 ```

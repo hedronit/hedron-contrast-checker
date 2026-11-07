@@ -13,10 +13,8 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://contrastchecker.hedron.it">
 
-  <!-- Fonts: Source Sans 3 (updated Source Sans Pro) + Source Code Pro -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Fonts: Source Sans 3 + Source Code Pro, self-hosted in fonts/ (declared in style.css) -->
+  <link rel="preload" href="fonts/source-sans-3-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -78,9 +76,10 @@
                   autocomplete="off"
                   spellcheck="false"
                   aria-describedby="txt-hex-desc"
-                  pattern="^#[0-9A-Fa-f]{6}$"
+                  pattern="^#?([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$"
                 >
                 <span id="txt-hex-desc" class="visually-hidden">Format: #RRGGBB</span>
+                <span id="txt-hex-error" class="field-error" hidden>Use the format #RRGGBB, for example #1C1C1A.</span>
               </div>
             </div>
 
@@ -143,9 +142,10 @@
                   autocomplete="off"
                   spellcheck="false"
                   aria-describedby="bg-hex-desc"
-                  pattern="^#[0-9A-Fa-f]{6}$"
+                  pattern="^#?([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$"
                 >
                 <span id="bg-hex-desc" class="visually-hidden">Format: #RRGGBB</span>
+                <span id="bg-hex-error" class="field-error" hidden>Use the format #RRGGBB, for example #1C1C1A.</span>
               </div>
             </div>
 
@@ -185,8 +185,6 @@
         id="results"
         class="results-section"
         aria-label="Contrast analysis results"
-        aria-live="polite"
-        aria-atomic="false"
       >
 
         <div class="metrics-grid">
@@ -197,8 +195,8 @@
               <span class="metric-standard">WCAG 2.2</span>
               <span class="metric-description">Contrast ratio</span>
             </div>
-            <div class="metric-value" id="wcagVal" aria-live="polite">—</div>
-            <div class="metric-badges" id="wcagBadges" aria-label="WCAG levels"></div>
+            <div class="metric-value" id="wcagVal">—</div>
+            <div class="metric-badges" id="wcagBadges" role="group" aria-label="WCAG levels"></div>
           </div>
 
           <!-- APCA -->
@@ -207,8 +205,8 @@
               <span class="metric-standard">APCA</span>
               <span class="metric-description">Lightness Contrast (Lc)</span>
             </div>
-            <div class="metric-value" id="apcaVal" aria-live="polite">—</div>
-            <div class="metric-badges" id="apcaBadges" aria-label="APCA levels"></div>
+            <div class="metric-value" id="apcaVal">—</div>
+            <div class="metric-badges" id="apcaBadges" role="group" aria-label="APCA levels"></div>
           </div>
 
         </div>
@@ -217,8 +215,6 @@
         <div
           id="divergenceNote"
           class="divergence-note"
-          role="status"
-          aria-live="polite"
           hidden
         ></div>
 
@@ -233,7 +229,7 @@
             Click any swatch to apply it as the text color.
           </p>
         </div>
-        <div id="suggestionsContent" aria-live="polite"></div>
+        <div id="suggestionsContent"></div>
       </section>
 
       <!-- ── Reference thresholds ── -->
@@ -264,6 +260,9 @@
         </div>
       </section>
 
+      <!-- Single live region: a short summary is announced once the user stops typing -->
+      <div id="srStatus" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true"></div>
+
     </main>
 
     <footer class="site-footer" role="contentinfo">
@@ -273,7 +272,7 @@
         <a href="https://github.com/Myndex/SAPC-APCA" target="_blank" rel="noopener noreferrer">APCA-W3 0.1.9</a>
       </p>
       <p>
-        All calculations run in the browser. No data is sent to any server. &nbsp;·&nbsp;
+        All calculations run in your browser: the colors you enter are never sent to a server. &nbsp;·&nbsp;
         <a href="https://github.com/hedronit/hedron-contrast-checker" target="_blank" rel="noopener noreferrer">GitHub</a>
         &nbsp;·&nbsp;
         <a href="https://hedron.it" target="_blank" rel="noopener noreferrer">Hedron</a>

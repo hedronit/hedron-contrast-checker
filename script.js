@@ -349,6 +349,7 @@ function setTxtColor(r, g, b) {
   document.getElementById('txtR').value = r;
   document.getElementById('txtG').value = g;
   document.getElementById('txtB').value = b;
+  setHexError('txt', false);
 }
 
 /**
@@ -368,6 +369,7 @@ function setBgColor(r, g, b) {
   document.getElementById('bgR').value = r;
   document.getElementById('bgG').value = g;
   document.getElementById('bgB').value = b;
+  setHexError('bg', false);
 }
 
 
@@ -383,8 +385,35 @@ function update() {
   const bgHex  = rgbToHex(br, bg, bb);
 
   renderPreview(txtHex, bgHex);
-  renderMetrics(tr, tg, tb, br, bg, bb);
-  renderSuggestions();
+  const summary = renderMetrics(tr, tg, tb, br, bg, bb);
+  const variantCount = renderSuggestions();
+  scheduleAnnouncement(summary, variantCount);
+}
+
+
+/* =============================================================================
+   8b. Screen reader announcements
+   ============================================================================= */
+
+/** Delay before announcing, so typing a value produces one announcement. */
+const ANNOUNCE_DELAY_MS = 600;
+let announceTimer = null;
+
+/**
+ * Announces a short summary of the results in the single live region,
+ * once the user has stopped changing the colors.
+ * @param {string} summary
+ * @param {number} variantCount
+ */
+function scheduleAnnouncement(summary, variantCount) {
+  clearTimeout(announceTimer);
+  announceTimer = setTimeout(() => {
+    const el = document.getElementById('srStatus');
+    const variants = variantCount === 1 ? '1 suggested variant.' : `${variantCount} suggested variants.`;
+    el.textContent = '';
+    // Small delay so the same text is announced again if results did not change
+    setTimeout(() => { el.textContent = `${summary} ${variants}`; }, 50);
+  }, ANNOUNCE_DELAY_MS);
 }
 
 /**
@@ -398,7 +427,7 @@ function renderPreview(txtHex, bgHex) {
   document.getElementById('previewNormal').style.color = txtHex;
   document.getElementById('previewLarge').style.color  = txtHex;
   box.setAttribute('aria-label',
-    `Anteprima: testo ${txtHex} su sfondo ${bgHex}`);
+    `Preview: ${txtHex} text on ${bgHex} background`);
 }
 
 /**
@@ -431,7 +460,20 @@ function renderMetrics(tr, tg, tb, br, bg, bb) {
   ]);
 
   // ── Nota divergenza ──
-  renderDivergenceNote(cr, lcAbs);
+  const diverges = renderDivergenceNote(cr, lcAbs);
+
+  // Short text summary for the live region
+  const wcagText =
+      cr >= WCAG.AAA_NORMAL ? 'passes AAA'
+    : cr >= WCAG.AA_NORMAL  ? 'passes AA'
+    : cr >= WCAG.AA_LARGE   ? 'passes AA for large text only'
+    :                         'fails AA';
+  const apcaText =
+      lcAbs >= APCA_THRESHOLDS.BODY  ? 'meets the body text threshold'
+    : lcAbs >= APCA_THRESHOLDS.LARGE ? 'meets the large text threshold only'
+    :                                  'below the large text threshold';
+  return `WCAG ${cr.toFixed(2)} to 1, ${wcagText}. APCA Lc ${lcAbs.toFixed(1)}, ${apcaText}.`
+    + (diverges ? ' WCAG and APCA disagree.' : '');
 }
 
 /**
@@ -466,14 +508,17 @@ function renderDivergenceNote(cr, lcAbs) {
       + 'APCA detects insufficient perceived contrast despite WCAG conformance. '
       + 'Consider the conformant variants below.';
     el.removeAttribute('hidden');
-  } else if (!wcagAA && apcaBody) {
+    return true;
+  }
+  if (!wcagAA && apcaBody) {
     el.textContent = '⚠ Algorithm divergence: does not pass WCAG 2.2 AA '
       + `(${cr.toFixed(2)}:1) but APCA considers the contrast adequate for body text (Lc ${lcAbs.toFixed(1)}). `
       + 'This can occur with high-chroma colors. For current legal compliance, WCAG is the normative reference.';
     el.removeAttribute('hidden');
-  } else {
-    el.setAttribute('hidden', '');
+    return true;
   }
+  el.setAttribute('hidden', '');
+  return false;
 }
 
 /**
@@ -485,7 +530,7 @@ function renderSuggestions() {
 
   if (!best.length && !good.length && !fair.length) {
     container.innerHTML = '<p class="no-suggestions">No conformant variants found for this hue. Try adjusting the color.</p>';
-    return;
+    return 0;
   }
 
   const groups = [
@@ -506,10 +551,19 @@ function renderSuggestions() {
   // Collega click handler a ogni swatch
   container.querySelectorAll('.swatch-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      const rgb = hexToRgb(btn.dataset.hex);
-      if (rgb) { setTxtColor(rgb.r, rgb.g, rgb.b); update(); }
+      const hex = btn.dataset.hex;
+      const rgb = hexToRgb(hex);
+      if (!rgb) return;
+      setTxtColor(rgb.r, rgb.g, rgb.b);
+      update();
+      // The list is rebuilt: keep keyboard focus on the same swatch,
+      // or move it to the text color field if that swatch is gone.
+      const same = container.querySelector(`.swatch-btn[data-hex="${hex}"]`);
+      (same || document.getElementById('txtHex')).focus();
     });
   });
+
+  return best.length + good.length + fair.length;
 }
 
 /**
@@ -548,6 +602,63 @@ function buildSwatchHTML(c) {
    9. Event listeners
    ============================================================================= */
 
+/**
+ * Shows or hides the error message of a hex field.
+ * @param {'txt'|'bg'} prefix
+ * @param {boolean} invalid
+ */
+function setHexError(prefix, invalid) {
+  const input = document.getElementById(`${prefix}Hex`);
+  const error = document.getElementById(`${prefix}-hex-error`);
+  input.classList.toggle('invalid', invalid);
+  input.setAttribute('aria-invalid', invalid ? 'true' : 'false');
+  // Reference the message only while it is visible
+  input.setAttribute('aria-describedby',
+    invalid ? `${prefix}-hex-desc ${prefix}-hex-error` : `${prefix}-hex-desc`);
+  error.hidden = !invalid;
+}
+
+/**
+ * Wires a hex field: a complete #RRGGBB value updates the results while typing;
+ * when the field loses focus, #RGB and values without # are accepted too,
+ * and an invalid value shows an error message.
+ * @param {'txt'|'bg'} prefix
+ * @param {(r: number, g: number, b: number) => void} setColor
+ */
+function bindHexInput(prefix, setColor) {
+  const input = document.getElementById(`${prefix}Hex`);
+
+  input.addEventListener('input', () => {
+    const val = input.value.trim().replace(/^#?/, '#');
+    if (/^#[0-9A-Fa-f]{6}$/.test(val)) {
+      const rgb = hexToRgb(val);
+      setHexError(prefix, false);
+      setColor(rgb.r, rgb.g, rgb.b);
+      update();
+    }
+  });
+
+  input.addEventListener('change', () => {
+    const val = input.value.trim().replace(/^#?/, '#');
+    const rgb = /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/.test(val) ? hexToRgb(val) : null;
+    if (rgb) {
+      setHexError(prefix, false);
+      const current = prefix === 'txt' ? txtColor : bgColor;
+      const newHex  = rgbToHex(rgb.r, rgb.g, rgb.b);
+      if (newHex === rgbToHex(current.r, current.g, current.b)) {
+        // Already applied while typing: only tidy the field, do not rebuild
+        // the page (a rebuild here would swallow a click on a swatch).
+        input.value = newHex;
+        return;
+      }
+      setColor(rgb.r, rgb.g, rgb.b);
+      update();
+    } else {
+      setHexError(prefix, true);
+    }
+  });
+}
+
 /** Wires all event listeners to input elements. */
 function bindInputs() {
 
@@ -558,13 +669,7 @@ function bindInputs() {
     if (rgb) { setTxtColor(rgb.r, rgb.g, rgb.b); update(); }
   });
 
-  document.getElementById('txtHex').addEventListener('input', e => {
-    const val = e.target.value.trim();
-    if (/^#[0-9A-Fa-f]{6}$/.test(val)) {
-      const rgb = hexToRgb(val);
-      if (rgb) { setTxtColor(rgb.r, rgb.g, rgb.b); update(); }
-    }
-  });
+  bindHexInput('txt', setTxtColor);
 
   ['txtR', 'txtG', 'txtB'].forEach(id => {
     document.getElementById(id).addEventListener('input', () => {
@@ -583,13 +688,7 @@ function bindInputs() {
     if (rgb) { setBgColor(rgb.r, rgb.g, rgb.b); update(); }
   });
 
-  document.getElementById('bgHex').addEventListener('input', e => {
-    const val = e.target.value.trim();
-    if (/^#[0-9A-Fa-f]{6}$/.test(val)) {
-      const rgb = hexToRgb(val);
-      if (rgb) { setBgColor(rgb.r, rgb.g, rgb.b); update(); }
-    }
-  });
+  bindHexInput('bg', setBgColor);
 
   ['bgR', 'bgG', 'bgB'].forEach(id => {
     document.getElementById(id).addEventListener('input', () => {
