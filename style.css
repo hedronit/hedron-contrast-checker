@@ -800,6 +800,36 @@ input[type="color"]:focus-visible {
   gap: var(--space-2);
 }
 
+/* Card: apply button + copy button */
+.swatch-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  width: 100px;
+}
+
+.swatch-copy {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semi);
+  padding: var(--space-1) var(--space-2);
+  background: var(--color-surface);
+  color: var(--color-text-2);
+  border: 1px solid var(--color-border-input);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.swatch-copy:hover {
+  border-color: var(--color-accent);
+  color: var(--color-text);
+}
+
+.swatch-copy:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
 /* Swatch: <button> for keyboard accessibility */
 .swatch-btn {
   display: flex;

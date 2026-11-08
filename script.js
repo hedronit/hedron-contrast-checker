@@ -395,6 +395,17 @@ function update() {
    8b. Screen reader announcements
    ============================================================================= */
 
+/**
+ * Announces a message right away in the live region.
+ * @param {string} message
+ */
+function announceNow(message) {
+  clearTimeout(announceTimer);
+  const el = document.getElementById('srStatus');
+  el.textContent = '';
+  setTimeout(() => { el.textContent = message; }, 50);
+}
+
 /** Delay before announcing, so typing a value produces one announcement. */
 const ANNOUNCE_DELAY_MS = 600;
 let announceTimer = null;
@@ -563,7 +574,47 @@ function renderSuggestions() {
     });
   });
 
+  container.querySelectorAll('.swatch-copy').forEach(btn => {
+    btn.addEventListener('click', () => copyHex(btn));
+  });
+
   return best.length + good.length + fair.length;
+}
+
+/**
+ * Copies a suggested color's hex code to the clipboard, shows "Copied"
+ * on the button for a moment and announces the result.
+ * @param {HTMLButtonElement} btn
+ */
+async function copyHex(btn) {
+  const hex = btn.dataset.hex;
+  let copied = false;
+  try {
+    await navigator.clipboard.writeText(hex);
+    copied = true;
+  } catch {
+    // Fallback for browsers or contexts without the Clipboard API
+    const area = document.createElement('textarea');
+    area.value = hex;
+    area.setAttribute('readonly', '');
+    area.className = 'visually-hidden';
+    document.body.appendChild(area);
+    area.select();
+    try { copied = document.execCommand('copy'); } catch { copied = false; }
+    area.remove();
+    btn.focus();
+  }
+  announceNow(copied ? `${hex} copied to the clipboard.` : `Could not copy. The code is ${hex}.`);
+  if (copied) {
+    // Keep the accessible name in line with the visible text (WCAG 2.5.3)
+    btn.textContent = 'Copied';
+    btn.setAttribute('aria-label', `Copied ${hex}`);
+    clearTimeout(btn._resetTimer);
+    btn._resetTimer = setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.setAttribute('aria-label', `Copy ${hex}`);
+    }, 2000);
+  }
 }
 
 /**
@@ -580,6 +631,7 @@ function buildSwatchHTML(c) {
   const ariaLabel = `Apply ${c.hex} — ${c.wcag.toFixed(1)}:1, ${wcagLabel}, Lc ${Math.round(c.lcAbs)}`;
 
   return `
+    <div class="swatch-card">
     <button
       type="button"
       class="swatch-btn"
@@ -594,6 +646,13 @@ function buildSwatchHTML(c) {
         <span class="swatch-badge ${apcaClass}">${apcaLabel}</span>
       </span>
     </button>
+    <button
+      type="button"
+      class="swatch-copy"
+      data-hex="${c.hex}"
+      aria-label="Copy ${c.hex}"
+    >Copy</button>
+    </div>
   `;
 }
 
