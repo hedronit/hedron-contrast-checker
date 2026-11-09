@@ -27,10 +27,12 @@ It also addresses a blind spot in WCAG-only workflows: saturated colors that pas
 - **Flexible color input**: HEX, RGB fields, and native color picker, all synced in real time
 - **Divergence detection**: highlights cases where WCAG and APCA disagree (e.g. saturated colors on dark backgrounds that pass WCAG but fail APCA)
 - **Conformant variants**: suggests nearby colors (same hue, adjusted lightness) that meet accessibility thresholds, grouped by compliance level
+- **Copy hex codes**: each suggested color has a Copy button that puts its hex code on the clipboard
 - **Swap button**: instantly reverses text and background colors to check both polarities
 - **Dark mode**: respects `prefers-color-scheme`
 - **Fully accessible**: semantic HTML, ARIA landmarks, `aria-live` regions, keyboard navigation, visible focus rings, skip link
 - **Zero dependencies**: single HTML + CSS + JS, no build step, no frameworks, no tracking
+- **No third-party requests**: fonts are self-hosted, so the page never contacts external servers
 
 ---
 
@@ -56,6 +58,8 @@ hedron-contrast-checker/
 ├── index.html   — semantic HTML with ARIA attributes
 ├── style.css    — CSS custom properties, dark mode, print styles
 ├── script.js    — color math, WCAG & APCA algorithms, suggestion engine
+├── fonts/       — Source Sans 3 and Source Code Pro (woff2, SIL Open Font License)
+├── ACCESSIBILITY.md — accessibility statement and how to report barriers
 ├── LICENSE      — GPL v3
 └── README.md
 ```
@@ -123,7 +127,6 @@ Contributions are welcome. Please open an issue before submitting a large PR so 
 ### Good first contributions
 
 - Add URL params so contrast pairs can be shared via link (`?txt=F36A6F&bg=000000`)
-- Add a copy-to-clipboard button on each suggested swatch
 - Add a "check foreground" / "check background" toggle for the suggestion engine
 - Improve the APCA suggestion engine with font-size-aware thresholds
 - Add OKLCH color input support

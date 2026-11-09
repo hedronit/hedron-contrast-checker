@@ -1,7 +1,120 @@
 /* =============================================================================
    Hedron Contrast Checker — style.css
-   Font: Source Sans 3 (updated Source Sans Pro by Adobe, via Google Fonts)
+   Font: Source Sans 3 and Source Code Pro by Adobe, self-hosted in fonts/
    ============================================================================= */
+
+/* =============================================================================
+   0. Fonts: self-hosted (SIL Open Font License, see fonts/LICENSE-*.txt)
+   No requests to third-party servers.
+   ============================================================================= */
+
+@font-face {
+  font-family: 'Source Sans 3';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('fonts/source-sans-3-latin-ext-300-normal.woff2') format('woff2');
+  unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Source Sans 3';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('fonts/source-sans-3-latin-300-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Source Sans 3';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/source-sans-3-latin-ext-400-normal.woff2') format('woff2');
+  unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Source Sans 3';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/source-sans-3-latin-400-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Source Sans 3';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('fonts/source-sans-3-latin-ext-500-normal.woff2') format('woff2');
+  unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Source Sans 3';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('fonts/source-sans-3-latin-500-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Source Sans 3';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('fonts/source-sans-3-latin-ext-600-normal.woff2') format('woff2');
+  unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Source Sans 3';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('fonts/source-sans-3-latin-600-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Source Code Pro';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/source-code-pro-latin-ext-400-normal.woff2') format('woff2');
+  unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Source Code Pro';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/source-code-pro-latin-400-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Source Code Pro';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('fonts/source-code-pro-latin-ext-500-normal.woff2') format('woff2');
+  unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Source Code Pro';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('fonts/source-code-pro-latin-500-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 
 /* =============================================================================
    1. CSS Custom Properties
@@ -51,6 +164,7 @@
   --color-border:        rgba(0, 0, 0, 0.09);
   --color-border-strong: rgba(0, 0, 0, 0.18);
   --color-border-focus:  #2563eb;
+  --color-border-input:  #85857f; /* ≥ 3:1 against surfaces (WCAG 1.4.11) */
 
   --color-text:          #1c1c1a;
   --color-text-2:        #515149;
@@ -95,6 +209,7 @@
     --color-surface-alt:   #252523;
     --color-border:        rgba(255, 255, 255, 0.08);
     --color-border-strong: rgba(255, 255, 255, 0.16);
+    --color-border-input:  #7c7c75; /* ≥ 3:1 against surfaces (WCAG 1.4.11) */
 
     --color-text:          #eeeee8;
     --color-text-2:        #ffffff;
@@ -352,7 +467,7 @@ input[type="color"] {
   width: 42px;
   height: 42px;
   padding: 3px;
-  border: 1px solid var(--color-border-strong);
+  border: 1px solid var(--color-border-input);
   border-radius: var(--radius-md);
   background: none;
   cursor: pointer;
@@ -389,16 +504,17 @@ input[type="color"]:focus-visible {
   width: 110px;
   background: var(--color-surface-alt);
   color: var(--color-text);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-input);
   border-radius: var(--radius-md);
   text-transform: uppercase;
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-.hex-input:hover { border-color: var(--color-border-strong); }
+.hex-input:hover { border-color: var(--color-text-2); }
 
 .hex-input:focus {
-  outline: none;
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
   border-color: var(--color-border-focus);
   box-shadow: 0 0 0 3px var(--color-accent-light);
 }
@@ -407,6 +523,15 @@ input[type="color"]:focus-visible {
   border-color: var(--color-fail);
   box-shadow: 0 0 0 3px var(--color-fail-bg);
 }
+
+.field-error {
+  display: block;
+  margin-top: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--color-fail);
+}
+
+.field-error[hidden] { display: none; }
 
 /* RGB inputs */
 .rgb-row {
@@ -435,7 +560,7 @@ input[type="color"]:focus-visible {
   padding: 7px 4px;
   background: var(--color-surface-alt);
   color: var(--color-text);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-input);
   border-radius: var(--radius-md);
   text-align: center;
   -moz-appearance: textfield;
@@ -445,10 +570,11 @@ input[type="color"]:focus-visible {
 .rgb-input::-webkit-outer-spin-button,
 .rgb-input::-webkit-inner-spin-button { -webkit-appearance: none; }
 
-.rgb-input:hover  { border-color: var(--color-border-strong); }
+.rgb-input:hover  { border-color: var(--color-text-2); }
 
 .rgb-input:focus {
-  outline: none;
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
   border-color: var(--color-border-focus);
   box-shadow: 0 0 0 3px var(--color-accent-light);
 }
@@ -672,6 +798,36 @@ input[type="color"]:focus-visible {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-2);
+}
+
+/* Card: apply button + copy button */
+.swatch-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  width: 100px;
+}
+
+.swatch-copy {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semi);
+  padding: var(--space-1) var(--space-2);
+  background: var(--color-surface);
+  color: var(--color-text-2);
+  border: 1px solid var(--color-border-input);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.swatch-copy:hover {
+  border-color: var(--color-accent);
+  color: var(--color-text);
+}
+
+.swatch-copy:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
 }
 
 /* Swatch: <button> for keyboard accessibility */
