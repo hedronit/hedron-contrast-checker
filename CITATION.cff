@@ -18,8 +18,8 @@ authors:
 repository-code: "https://github.com/hedronit/hedron-contrast-checker"
 url: "https://contrastchecker.hedron.it/"
 license: GPL-3.0
-version: "1.0"
-date-released: "2026-05-08"
+version: "1.1"
+date-released: "2026-11-10"
 keywords:
   - accessibility
   - color-contrast
